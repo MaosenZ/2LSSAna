@@ -1,0 +1,37 @@
+
+----------------
+Maosen Zhou <maosen.zhou@cern.ch>
+June 5, 2016
+----------------
+This package was created to analyze hh->4W, based on ROOT5. The logic is to read in ntuples dumped from ttHML group ntuples and perform later study. The core parts are SampleHandler and miniNtuple. 
+
+The input for SampleHandler is ntuples and 
+1) build kinematics and make hists;
+2) prepare fake factor calculation;
+3) make miniNtuples.
+
+The input for miniNtuple is miniNtuples made above and
+1) do uncertainties estimations
+
+To run:
+make whateveryouwant
+./bin/whateveryouwant
+For instance, to calculate fake factors and fakes:
+1) first select tight+tight and tight+anti-tight events and store in hists for each sample
+./bin/runFFcalculator samp FFcal_*jets (notice two jet divisions, so you have to do twice)
+2) calculate fake factors
+The above step should make hists in temp/ 
+root -l src/FFcalculator_electron.cxx
+root -l src/FFcalculator_muon.cxx
+(always check these two macros and make sure you're reading the right hists)
+The output fake factors are stored in output/ff_*jets.txt 
+3) read fake factors and apply them to tight+anti-tight events
+./bin/runFFApp samp FFApp_*jets
+then make fakes
+root -l src/FFApp'(0)'  (check the macro make sure you're on the right njet division)
+finally make data/mc plots with fakes
+root -l src/DataMC.cxx 
+
+Besides, there are many standalone macros in src/ which are for signal optimizations, plots and so on.
+
+Free free to modify the code, but remember keep logging. 

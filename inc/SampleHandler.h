@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////
 // This class has been automatically generated on
-// Mon Mar  6 17:07:02 2017 by ROOT version 5.34/18
+// Fri Mar 31 08:23:32 2017 by ROOT version 5.34/36
 // from TTree Tree/MC
-// found on file: /scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/ntuples_mH260.root
+// found on file: /eos/atlas/user/x/xingguo/4w_ntuples/sig/343704.root
 //////////////////////////////////////////////////////////
 
 #ifndef SampleHandler_h
@@ -18,6 +18,8 @@
 #include <TPad.h>
 #include <iostream>
 #include <iomanip>
+#include <fstream>
+#include <sstream>
 #include <algorithm>
 #include <cmath>
 
@@ -32,12 +34,14 @@ public :
    Int_t           fCurrent; //!current Tree number in a TChain
    TString         dataset;
    Int_t           datasetType;
+   TString         SysSrc;
+   TString         SystematicType;
    // Declaration of leaf types
    Double_t        n_weight_tight;
    Double_t        n_weight_loose;
+   Int_t           RunYear;
    Int_t           dilep_type;
    Int_t           trilep_type;
-   Int_t           qualep_type;
    Int_t           total_charge;
    Int_t           total_leptons;
    Double_t        MV2c10_70_EventWeight;
@@ -47,29 +51,146 @@ public :
    vector<float>   *jet_phi;
    vector<float>   *jet_E;
    vector<char>    *jet_passOR;
-   vector<char>    *jet_passTauOR;
    vector<float>   *jet_flavor_weight_MV2c10;
    vector<float>   *jet_flavor_weight_MV2c00;
    vector<float>   *jet_flavor_weight_MV2c20;
    vector<short>   *selected_jets;
-   vector<short>   *selected_jets_T;
-   Int_t           nJets_OR_T_MV2c10_70;
-   Int_t           nJets_OR_T_MV2c10_77;
    Int_t           nJets_OR_MV2c10_70;
    Int_t           nJets_OR_MV2c10_77;
-   Int_t           nJets_OR_T;
    Int_t           nJets_OR;
-   vector<float>   *tau_pt;
-   vector<float>   *tau_eta;
-   vector<float>   *tau_phi;
-   vector<float>   *tau_E;
-   vector<float>   *tau_charge;
-   vector<char>    *tau_passOR;
-   vector<int>     *tau_passEleOLR;
-   vector<int>     *tau_isHadronicTau;
-   vector<int>     *tau_isTruthMatched;
-   vector<int>     *tau_truthOrigin;
-   vector<int>     *tau_truthType;
+   Double_t        mcWeightOrg;
+   Double_t        SherpaNJetWeight;
+   Double_t        pileupEventWeight_090;
+   Double_t        JVT_EventWeight;
+   Double_t        pileupEventWeight_UP;
+   Double_t        pileupEventWeight_DOWN;
+   Float_t         MV2c10_70_EventWeight_B0_up;
+   Float_t         MV2c10_70_EventWeight_B0_down;
+   Float_t         MV2c10_70_EventWeight_B1_up;
+   Float_t         MV2c10_70_EventWeight_B1_down;
+   Float_t         MV2c10_70_EventWeight_B2_up;
+   Float_t         MV2c10_70_EventWeight_B2_down;
+   Float_t         MV2c10_70_EventWeight_B3_up;
+   Float_t         MV2c10_70_EventWeight_B3_down;
+   Float_t         MV2c10_70_EventWeight_B4_up;
+   Float_t         MV2c10_70_EventWeight_B4_down;
+   Float_t         MV2c10_70_EventWeight_B5_up;
+   Float_t         MV2c10_70_EventWeight_B5_down;
+   Float_t         MV2c10_70_EventWeight_C0_up;
+   Float_t         MV2c10_70_EventWeight_C0_down;
+   Float_t         MV2c10_70_EventWeight_C1_up;
+   Float_t         MV2c10_70_EventWeight_C1_down;
+   Float_t         MV2c10_70_EventWeight_C2_up;
+   Float_t         MV2c10_70_EventWeight_C2_down;
+   Float_t         MV2c10_70_EventWeight_C3_up;
+   Float_t         MV2c10_70_EventWeight_C3_down;
+   Float_t         MV2c10_70_EventWeight_Light0_up;
+   Float_t         MV2c10_70_EventWeight_Light0_down;
+   Float_t         MV2c10_70_EventWeight_Light1_up;
+   Float_t         MV2c10_70_EventWeight_Light1_down;
+   Float_t         MV2c10_70_EventWeight_Light2_up;
+   Float_t         MV2c10_70_EventWeight_Light2_down;
+   Float_t         MV2c10_70_EventWeight_Light3_up;
+   Float_t         MV2c10_70_EventWeight_Light3_down;
+   Float_t         MV2c10_70_EventWeight_Light4_up;
+   Float_t         MV2c10_70_EventWeight_Light4_down;
+   Float_t         MV2c10_70_EventWeight_Light5_up;
+   Float_t         MV2c10_70_EventWeight_Light5_down;
+   Float_t         MV2c10_70_EventWeight_Light6_up;
+   Float_t         MV2c10_70_EventWeight_Light6_down;
+   Float_t         MV2c10_70_EventWeight_Light7_up;
+   Float_t         MV2c10_70_EventWeight_Light7_down;
+   Float_t         MV2c10_70_EventWeight_Light8_up;
+   Float_t         MV2c10_70_EventWeight_Light8_down;
+   Float_t         MV2c10_70_EventWeight_Light9_up;
+   Float_t         MV2c10_70_EventWeight_Light9_down;
+   Float_t         MV2c10_70_EventWeight_Light10_up;
+   Float_t         MV2c10_70_EventWeight_Light10_down;
+   Float_t         MV2c10_70_EventWeight_Light11_up;
+   Float_t         MV2c10_70_EventWeight_Light11_down;
+   Float_t         MV2c10_70_EventWeight_Light12_up;
+   Float_t         MV2c10_70_EventWeight_Light12_down;
+   Float_t         MV2c10_70_EventWeight_Light13_up;
+   Float_t         MV2c10_70_EventWeight_Light13_down;
+   Float_t         MV2c10_70_EventWeight_Light14_up;
+   Float_t         MV2c10_70_EventWeight_Light14_down;
+   Float_t         MV2c10_70_EventWeight_Light15_up;
+   Float_t         MV2c10_70_EventWeight_Light15_down;
+   Float_t         MV2c10_70_EventWeight_extrapolation_up;
+   Float_t         MV2c10_70_EventWeight_extrapolation_down;
+   Float_t         MV2c10_70_EventWeight_extrapolation_from_charm_up;
+   Float_t         MV2c10_70_EventWeight_extrapolation_from_charm_down;
+   Double_t        JVT_EventWeight_UP;
+   Double_t        JVT_EventWeight_DOWN;
+   Float_t         lepSFTrigLoose;
+   Float_t         lepSFTrigTight;//nominal
+   //Double_t         lepSFTrigTight;//syst
+   Float_t         lepSFObjLoose;
+   Float_t         lepSFObjTight;
+   //Double_t         lepSFObjTight; //syst
+   vector<float>   *m_mcevt_pdf_X1;
+   vector<float>   *m_mcevt_pdf_X2;
+   vector<int>     *m_mcevt_pdf_PDGID1;
+   vector<int>     *m_mcevt_pdf_PDGID2;
+   vector<float>   *m_mcevt_pdf_Q;
+   vector<float>   *m_mcevt_pdf_XF1;
+   vector<float>   *m_mcevt_pdf_XF2;
+   Float_t         lepSFTrigLoose_EL_SF_Trigger_UP;
+   Float_t         lepSFTrigTight_EL_SF_Trigger_UP;
+   Float_t         lepSFTrigLoose_EL_SF_Trigger_DOWN;
+   Float_t         lepSFTrigTight_EL_SF_Trigger_DOWN;
+   Float_t         lepSFObjLoose_EL_SF_Reco_UP;
+   Float_t         lepSFObjTight_EL_SF_Reco_UP;
+   Float_t         lepSFObjLoose_EL_SF_Reco_DOWN;
+   Float_t         lepSFObjTight_EL_SF_Reco_DOWN;
+   Float_t         lepSFObjLoose_EL_SF_ID_UP;
+   Float_t         lepSFObjTight_EL_SF_ID_UP;
+   Float_t         lepSFObjLoose_EL_SF_ID_DOWN;
+   Float_t         lepSFObjTight_EL_SF_ID_DOWN;
+   Float_t         lepSFObjLoose_EL_SF_Isol_UP;
+   Float_t         lepSFObjTight_EL_SF_Isol_UP;
+   Float_t         lepSFObjLoose_EL_SF_Isol_DOWN;
+   Float_t         lepSFObjTight_EL_SF_Isol_DOWN;
+   Float_t         lepSFTrigLoose_MU_SF_Trigger_STAT_UP;
+   Float_t         lepSFTrigTight_MU_SF_Trigger_STAT_UP;
+   Float_t         lepSFTrigLoose_MU_SF_Trigger_STAT_DOWN;
+   Float_t         lepSFTrigTight_MU_SF_Trigger_STAT_DOWN;
+   Float_t         lepSFTrigLoose_MU_SF_Trigger_SYST_UP;
+   Float_t         lepSFTrigTight_MU_SF_Trigger_SYST_UP;
+   Float_t         lepSFTrigLoose_MU_SF_Trigger_SYST_DOWN;
+   Float_t         lepSFTrigTight_MU_SF_Trigger_SYST_DOWN;
+   Float_t         lepSFObjLoose_MU_SF_ID_STAT_UP;
+   Float_t         lepSFObjTight_MU_SF_ID_STAT_UP;
+   Float_t         lepSFObjLoose_MU_SF_ID_STAT_DOWN;
+   Float_t         lepSFObjTight_MU_SF_ID_STAT_DOWN;
+   Float_t         lepSFObjLoose_MU_SF_ID_SYST_UP;
+   Float_t         lepSFObjTight_MU_SF_ID_SYST_UP;
+   Float_t         lepSFObjLoose_MU_SF_ID_SYST_DOWN;
+   Float_t         lepSFObjTight_MU_SF_ID_SYST_DOWN;
+   Float_t         lepSFObjLoose_MU_SF_ID_STAT_LOWPT_UP;
+   Float_t         lepSFObjTight_MU_SF_ID_STAT_LOWPT_UP;
+   Float_t         lepSFObjLoose_MU_SF_ID_STAT_LOWPT_DOWN;
+   Float_t         lepSFObjTight_MU_SF_ID_STAT_LOWPT_DOWN;
+   Float_t         lepSFObjLoose_MU_SF_ID_SYST_LOWPT_UP;
+   Float_t         lepSFObjTight_MU_SF_ID_SYST_LOWPT_UP;
+   Float_t         lepSFObjLoose_MU_SF_ID_SYST_LOWPT_DOWN;
+   Float_t         lepSFObjTight_MU_SF_ID_SYST_LOWPT_DOWN;
+   Float_t         lepSFObjLoose_MU_SF_Isol_STAT_UP;
+   Float_t         lepSFObjTight_MU_SF_Isol_STAT_UP;
+   Float_t         lepSFObjLoose_MU_SF_Isol_STAT_DOWN;
+   Float_t         lepSFObjTight_MU_SF_Isol_STAT_DOWN;
+   Float_t         lepSFObjLoose_MU_SF_Isol_SYST_UP;
+   Float_t         lepSFObjTight_MU_SF_Isol_SYST_UP;
+   Float_t         lepSFObjLoose_MU_SF_Isol_SYST_DOWN;
+   Float_t         lepSFObjTight_MU_SF_Isol_SYST_DOWN;
+   Float_t         lepSFObjLoose_MU_SF_TTVA_STAT_UP;
+   Float_t         lepSFObjTight_MU_SF_TTVA_STAT_UP;
+   Float_t         lepSFObjLoose_MU_SF_TTVA_STAT_DOWN;
+   Float_t         lepSFObjTight_MU_SF_TTVA_STAT_DOWN;
+   Float_t         lepSFObjLoose_MU_SF_TTVA_SYST_UP;
+   Float_t         lepSFObjTight_MU_SF_TTVA_SYST_UP;
+   Float_t         lepSFObjLoose_MU_SF_TTVA_SYST_DOWN;
+   Float_t         lepSFObjTight_MU_SF_TTVA_SYST_DOWN;
    Float_t         MET_RefFinal_et;
    Float_t         MET_RefFinal_phi;
    Float_t         lep_ID_0;
@@ -78,11 +199,7 @@ public :
    Float_t         lep_Eta_0;
    Float_t         lep_Phi_0;
    Float_t         lep_topoEtcone20_0;
-   Float_t         lep_topoEtcone30_0;
-   Float_t         lep_topoEtcone40_0;
    Float_t         lep_ptVarcone20_0;
-   Float_t         lep_ptVarcone30_0;
-   Float_t         lep_ptVarcone40_0;
    Float_t         lep_sigd0PV_0;
    Float_t         lep_Z0SinTheta_0;
    Float_t         lep_d0_0;
@@ -103,9 +220,6 @@ public :
    Char_t          lep_isTrigMatch_0;
    Char_t          lep_isTrigMatchDLT_0;
    Char_t          lep_isPrompt_0;
-   Char_t          lep_isFakeLep_0;
-   Char_t          lep_isQMisID_0;
-   Char_t          lep_isConvPh_0;
    Char_t          lep_isISR_FSR_Ph_0;
    Char_t          lep_isBrems_0;
    Char_t          lep_isTruthMatched_0;
@@ -122,11 +236,7 @@ public :
    Float_t         lep_Eta_1;
    Float_t         lep_Phi_1;
    Float_t         lep_topoEtcone20_1;
-   Float_t         lep_topoEtcone30_1;
-   Float_t         lep_topoEtcone40_1;
    Float_t         lep_ptVarcone20_1;
-   Float_t         lep_ptVarcone30_1;
-   Float_t         lep_ptVarcone40_1;
    Float_t         lep_sigd0PV_1;
    Float_t         lep_Z0SinTheta_1;
    Float_t         lep_d0_1;
@@ -147,9 +257,6 @@ public :
    Char_t          lep_isTrigMatch_1;
    Char_t          lep_isTrigMatchDLT_1;
    Char_t          lep_isPrompt_1;
-   Char_t          lep_isFakeLep_1;
-   Char_t          lep_isQMisID_1;
-   Char_t          lep_isConvPh_1;
    Char_t          lep_isISR_FSR_Ph_1;
    Char_t          lep_isBrems_1;
    Char_t          lep_isTruthMatched_1;
@@ -166,11 +273,7 @@ public :
    Float_t         lep_Eta_2;
    Float_t         lep_Phi_2;
    Float_t         lep_topoEtcone20_2;
-   Float_t         lep_topoEtcone30_2;
-   Float_t         lep_topoEtcone40_2;
    Float_t         lep_ptVarcone20_2;
-   Float_t         lep_ptVarcone30_2;
-   Float_t         lep_ptVarcone40_2;
    Float_t         lep_sigd0PV_2;
    Float_t         lep_Z0SinTheta_2;
    Float_t         lep_d0_2;
@@ -192,9 +295,6 @@ public :
    Char_t          lep_isTrigMatchDLT_2;
    Char_t          lep_isPrompt_2;
    Char_t          lep_isFakeLep_2;
-   Char_t          lep_isQMisID_2;
-   Char_t          lep_isConvPh_2;
-   Char_t          lep_isISR_FSR_Ph_2;
    Char_t          lep_isBrems_2;
    Char_t          lep_isTruthMatched_2;
    Int_t           lep_truthType_2;
@@ -204,57 +304,13 @@ public :
    Float_t         lep_ChargeIDBDTMedium_2;
    Float_t         lep_ChargeIDBDTTight_2;
    Float_t         lep_PromptLeptonIso_TagWeight_2;
-   Float_t         lep_ID_3;
-   Float_t         lep_Pt_3;
-   Float_t         lep_E_3;
-   Float_t         lep_Eta_3;
-   Float_t         lep_Phi_3;
-   Float_t         lep_topoEtcone20_3;
-   Float_t         lep_topoEtcone30_3;
-   Float_t         lep_topoEtcone40_3;
-   Float_t         lep_ptVarcone20_3;
-   Float_t         lep_ptVarcone30_3;
-   Float_t         lep_ptVarcone40_3;
-   Float_t         lep_sigd0PV_3;
-   Float_t         lep_Z0SinTheta_3;
-   Float_t         lep_d0_3;
-   Float_t         lep_z0_3;
-   Char_t          lep_isTightLH_3;
-   Char_t          lep_isMediumLH_3;
-   Char_t          lep_isLooseLH_3;
-   Char_t          lep_isTight_3;
-   Char_t          lep_isMedium_3;
-   Char_t          lep_isLoose_3;
-   Int_t           lep_isolationLooseTrackOnly_3;
-   Int_t           lep_isolationLoose_3;
-   Int_t           lep_isolationGradient_3;
-   Int_t           lep_isolationGradientLoose_3;
-   Int_t           lep_isolationFixedCutTight_3;
-   Int_t           lep_isolationFixedCutTightTrackOnly_3;
-   Int_t           lep_isolationFixedCutLoose_3;
-   Char_t          lep_isTrigMatch_3;
-   Char_t          lep_isTrigMatchDLT_3;
-   Char_t          lep_isPrompt_3;
-   Char_t          lep_isFakeLep_3;
-   Char_t          lep_isQMisID_3;
-   Char_t          lep_isConvPh_3;
-   Char_t          lep_isISR_FSR_Ph_3;
-   Char_t          lep_isBrems_3;
-   Char_t          lep_isTruthMatched_3;
-   Int_t           lep_truthType_3;
-   Int_t           lep_truthOrigin_3;
-   Int_t           lep_truthPdgId_3;
-   Float_t         lep_ChargeIDBDTLoose_3;
-   Float_t         lep_ChargeIDBDTMedium_3;
-   Float_t         lep_ChargeIDBDTTight_3;
-   Float_t         lep_PromptLeptonIso_TagWeight_3;
 
    // List of branches
    TBranch        *b_weight_tight;   //!
    TBranch        *b_weight_loose;   //!
+   TBranch        *b_RunYear;   //!
    TBranch        *b_dilep_type;   //!
    TBranch        *b_trilep_type;   //!
-   TBranch        *b_qualep_type;   //!
    TBranch        *b_total_charge;   //!
    TBranch        *b_total_leptons;   //!
    TBranch        *b_MV2c10_70_EventWeight;   //!
@@ -264,29 +320,144 @@ public :
    TBranch        *b_jet_phi;   //!
    TBranch        *b_jet_E;   //!
    TBranch        *b_jet_passOR;   //!
-   TBranch        *b_jet_passTauOR;   //!
    TBranch        *b_jet_flavor_weight_MV2c10;   //!
    TBranch        *b_jet_flavor_weight_MV2c00;   //!
    TBranch        *b_jet_flavor_weight_MV2c20;   //!
    TBranch        *b_selected_jets;   //!
-   TBranch        *b_selected_jets_T;   //!
-   TBranch        *b_nJets_OR_T_MV2c10_70;   //!
-   TBranch        *b_nJets_OR_T_MV2c10_77;   //!
    TBranch        *b_nJets_OR_MV2c10_70;   //!
    TBranch        *b_nJets_OR_MV2c10_77;   //!
-   TBranch        *b_nJets_OR_T;   //!
    TBranch        *b_nJets_OR;   //!
-   TBranch        *b_tau_pt;   //!
-   TBranch        *b_tau_eta;   //!
-   TBranch        *b_tau_phi;   //!
-   TBranch        *b_tau_E;   //!
-   TBranch        *b_tau_charge;   //!
-   TBranch        *b_tau_passOR;   //!
-   TBranch        *b_tau_passEleOLR;   //!
-   TBranch        *b_tau_isHadronicTau;   //!
-   TBranch        *b_tau_isTruthMatched;   //!
-   TBranch        *b_tau_truthOrigin;   //!
-   TBranch        *b_tau_truthType;   //!
+   TBranch        *b_mcWeightOrg;   //!
+   TBranch        *b_SherpaNJetWeight;   //!
+   TBranch        *b_pileupEventWeight_090;   //!
+   TBranch        *b_JVT_EventWeight;   //!
+   TBranch        *b_pileupEventWeight_UP;   //!
+   TBranch        *b_pileupEventWeight_DOWN;   //!
+   TBranch        *b_MV2c10_70_EventWeight_B0_up;   //!
+   TBranch        *b_MV2c10_70_EventWeight_B0_down;   //!
+   TBranch        *b_MV2c10_70_EventWeight_B1_up;   //!
+   TBranch        *b_MV2c10_70_EventWeight_B1_down;   //!
+   TBranch        *b_MV2c10_70_EventWeight_B2_up;   //!
+   TBranch        *b_MV2c10_70_EventWeight_B2_down;   //!
+   TBranch        *b_MV2c10_70_EventWeight_B3_up;   //!
+   TBranch        *b_MV2c10_70_EventWeight_B3_down;   //!
+   TBranch        *b_MV2c10_70_EventWeight_B4_up;   //!
+   TBranch        *b_MV2c10_70_EventWeight_B4_down;   //!
+   TBranch        *b_MV2c10_70_EventWeight_B5_up;   //!
+   TBranch        *b_MV2c10_70_EventWeight_B5_down;   //!
+   TBranch        *b_MV2c10_70_EventWeight_C0_up;   //!
+   TBranch        *b_MV2c10_70_EventWeight_C0_down;   //!
+   TBranch        *b_MV2c10_70_EventWeight_C1_up;   //!
+   TBranch        *b_MV2c10_70_EventWeight_C1_down;   //!
+   TBranch        *b_MV2c10_70_EventWeight_C2_up;   //!
+   TBranch        *b_MV2c10_70_EventWeight_C2_down;   //!
+   TBranch        *b_MV2c10_70_EventWeight_C3_up;   //!
+   TBranch        *b_MV2c10_70_EventWeight_C3_down;   //!
+   TBranch        *b_MV2c10_70_EventWeight_Light0_up;   //!
+   TBranch        *b_MV2c10_70_EventWeight_Light0_down;   //!
+   TBranch        *b_MV2c10_70_EventWeight_Light1_up;   //!
+   TBranch        *b_MV2c10_70_EventWeight_Light1_down;   //!
+   TBranch        *b_MV2c10_70_EventWeight_Light2_up;   //!
+   TBranch        *b_MV2c10_70_EventWeight_Light2_down;   //!
+   TBranch        *b_MV2c10_70_EventWeight_Light3_up;   //!
+   TBranch        *b_MV2c10_70_EventWeight_Light3_down;   //!
+   TBranch        *b_MV2c10_70_EventWeight_Light4_up;   //!
+   TBranch        *b_MV2c10_70_EventWeight_Light4_down;   //!
+   TBranch        *b_MV2c10_70_EventWeight_Light5_up;   //!
+   TBranch        *b_MV2c10_70_EventWeight_Light5_down;   //!
+   TBranch        *b_MV2c10_70_EventWeight_Light6_up;   //!
+   TBranch        *b_MV2c10_70_EventWeight_Light6_down;   //!
+   TBranch        *b_MV2c10_70_EventWeight_Light7_up;   //!
+   TBranch        *b_MV2c10_70_EventWeight_Light7_down;   //!
+   TBranch        *b_MV2c10_70_EventWeight_Light8_up;   //!
+   TBranch        *b_MV2c10_70_EventWeight_Light8_down;   //!
+   TBranch        *b_MV2c10_70_EventWeight_Light9_up;   //!
+   TBranch        *b_MV2c10_70_EventWeight_Light9_down;   //!
+   TBranch        *b_MV2c10_70_EventWeight_Light10_up;   //!
+   TBranch        *b_MV2c10_70_EventWeight_Light10_down;   //!
+   TBranch        *b_MV2c10_70_EventWeight_Light11_up;   //!
+   TBranch        *b_MV2c10_70_EventWeight_Light11_down;   //!
+   TBranch        *b_MV2c10_70_EventWeight_Light12_up;   //!
+   TBranch        *b_MV2c10_70_EventWeight_Light12_down;   //!
+   TBranch        *b_MV2c10_70_EventWeight_Light13_up;   //!
+   TBranch        *b_MV2c10_70_EventWeight_Light13_down;   //!
+   TBranch        *b_MV2c10_70_EventWeight_Light14_up;   //!
+   TBranch        *b_MV2c10_70_EventWeight_Light14_down;   //!
+   TBranch        *b_MV2c10_70_EventWeight_Light15_up;   //!
+   TBranch        *b_MV2c10_70_EventWeight_Light15_down;   //!
+   TBranch        *b_MV2c10_70_EventWeight_extrapolation_up;   //!
+   TBranch        *b_MV2c10_70_EventWeight_extrapolation_down;   //!
+   TBranch        *b_MV2c10_70_EventWeight_extrapolation_from_charm_up;   //!
+   TBranch        *b_MV2c10_70_EventWeight_extrapolation_from_charm_down;   //!
+   TBranch        *b_JVT_EventWeight_UP;   //!
+   TBranch        *b_JVT_EventWeight_DOWN;   //!
+   TBranch        *b_lepSFTrigLoose;   //!
+   TBranch        *b_lepSFTrigTight;   //!
+   TBranch        *b_lepSFObjLoose;   //!
+   TBranch        *b_lepSFObjTight;   //!
+   TBranch        *b_m_mcevt_pdf_X1;   //!
+   TBranch        *b_m_mcevt_pdf_X2;   //!
+   TBranch        *b_m_mcevt_pdf_PDGID1;   //!
+   TBranch        *b_m_mcevt_pdf_PDGID2;   //!
+   TBranch        *b_m_mcevt_pdf_Q;   //!
+   TBranch        *b_m_mcevt_pdf_XF1;   //!
+   TBranch        *b_m_mcevt_pdf_XF2;   //!
+   TBranch        *b_lepSFTrigLoose_EL_SF_Trigger_UP;   //!
+   TBranch        *b_lepSFTrigTight_EL_SF_Trigger_UP;   //!
+   TBranch        *b_lepSFTrigLoose_EL_SF_Trigger_DOWN;   //!
+   TBranch        *b_lepSFTrigTight_EL_SF_Trigger_DOWN;   //!
+   TBranch        *b_lepSFObjLoose_EL_SF_Reco_UP;   //!
+   TBranch        *b_lepSFObjTight_EL_SF_Reco_UP;   //!
+   TBranch        *b_lepSFObjLoose_EL_SF_Reco_DOWN;   //!
+   TBranch        *b_lepSFObjTight_EL_SF_Reco_DOWN;   //!
+   TBranch        *b_lepSFObjLoose_EL_SF_ID_UP;   //!
+   TBranch        *b_lepSFObjTight_EL_SF_ID_UP;   //!
+   TBranch        *b_lepSFObjLoose_EL_SF_ID_DOWN;   //!
+   TBranch        *b_lepSFObjTight_EL_SF_ID_DOWN;   //!
+   TBranch        *b_lepSFObjLoose_EL_SF_Isol_UP;   //!
+   TBranch        *b_lepSFObjTight_EL_SF_Isol_UP;   //!
+   TBranch        *b_lepSFObjLoose_EL_SF_Isol_DOWN;   //!
+   TBranch        *b_lepSFObjTight_EL_SF_Isol_DOWN;   //!
+   TBranch        *b_lepSFTrigLoose_MU_SF_Trigger_STAT_UP;   //!
+   TBranch        *b_lepSFTrigTight_MU_SF_Trigger_STAT_UP;   //!
+   TBranch        *b_lepSFTrigLoose_MU_SF_Trigger_STAT_DOWN;   //!
+   TBranch        *b_lepSFTrigTight_MU_SF_Trigger_STAT_DOWN;   //!
+   TBranch        *b_lepSFTrigLoose_MU_SF_Trigger_SYST_UP;   //!
+   TBranch        *b_lepSFTrigTight_MU_SF_Trigger_SYST_UP;   //!
+   TBranch        *b_lepSFTrigLoose_MU_SF_Trigger_SYST_DOWN;   //!
+   TBranch        *b_lepSFTrigTight_MU_SF_Trigger_SYST_DOWN;   //!
+   TBranch        *b_lepSFObjLoose_MU_SF_ID_STAT_UP;   //!
+   TBranch        *b_lepSFObjTight_MU_SF_ID_STAT_UP;   //!
+   TBranch        *b_lepSFObjLoose_MU_SF_ID_STAT_DOWN;   //!
+   TBranch        *b_lepSFObjTight_MU_SF_ID_STAT_DOWN;   //!
+   TBranch        *b_lepSFObjLoose_MU_SF_ID_SYST_UP;   //!
+   TBranch        *b_lepSFObjTight_MU_SF_ID_SYST_UP;   //!
+   TBranch        *b_lepSFObjLoose_MU_SF_ID_SYST_DOWN;   //!
+   TBranch        *b_lepSFObjTight_MU_SF_ID_SYST_DOWN;   //!
+   TBranch        *b_lepSFObjLoose_MU_SF_ID_STAT_LOWPT_UP;   //!
+   TBranch        *b_lepSFObjTight_MU_SF_ID_STAT_LOWPT_UP;   //!
+   TBranch        *b_lepSFObjLoose_MU_SF_ID_STAT_LOWPT_DOWN;   //!
+   TBranch        *b_lepSFObjTight_MU_SF_ID_STAT_LOWPT_DOWN;   //!
+   TBranch        *b_lepSFObjLoose_MU_SF_ID_SYST_LOWPT_UP;   //!
+   TBranch        *b_lepSFObjTight_MU_SF_ID_SYST_LOWPT_UP;   //!
+   TBranch        *b_lepSFObjLoose_MU_SF_ID_SYST_LOWPT_DOWN;   //!
+   TBranch        *b_lepSFObjTight_MU_SF_ID_SYST_LOWPT_DOWN;   //!
+   TBranch        *b_lepSFObjLoose_MU_SF_Isol_STAT_UP;   //!
+   TBranch        *b_lepSFObjTight_MU_SF_Isol_STAT_UP;   //!
+   TBranch        *b_lepSFObjLoose_MU_SF_Isol_STAT_DOWN;   //!
+   TBranch        *b_lepSFObjTight_MU_SF_Isol_STAT_DOWN;   //!
+   TBranch        *b_lepSFObjLoose_MU_SF_Isol_SYST_UP;   //!
+   TBranch        *b_lepSFObjTight_MU_SF_Isol_SYST_UP;   //!
+   TBranch        *b_lepSFObjLoose_MU_SF_Isol_SYST_DOWN;   //!
+   TBranch        *b_lepSFObjTight_MU_SF_Isol_SYST_DOWN;   //!
+   TBranch        *b_lepSFObjLoose_MU_SF_TTVA_STAT_UP;   //!
+   TBranch        *b_lepSFObjTight_MU_SF_TTVA_STAT_UP;   //!
+   TBranch        *b_lepSFObjLoose_MU_SF_TTVA_STAT_DOWN;   //!
+   TBranch        *b_lepSFObjTight_MU_SF_TTVA_STAT_DOWN;   //!
+   TBranch        *b_lepSFObjLoose_MU_SF_TTVA_SYST_UP;   //!
+   TBranch        *b_lepSFObjTight_MU_SF_TTVA_SYST_UP;   //!
+   TBranch        *b_lepSFObjLoose_MU_SF_TTVA_SYST_DOWN;   //!
+   TBranch        *b_lepSFObjTight_MU_SF_TTVA_SYST_DOWN;   //!
    TBranch        *b_MET_RefFinal_et;   //!
    TBranch        *b_MET_RefFinal_phi;   //!
    TBranch        *b_lep_ID_0;   //!
@@ -295,11 +466,7 @@ public :
    TBranch        *b_lep_Eta_0;   //!
    TBranch        *b_lep_Phi_0;   //!
    TBranch        *b_lep_topoEtcone20_0;   //!
-   TBranch        *b_lep_topoEtcone30_0;   //!
-   TBranch        *b_lep_topoEtcone40_0;   //!
    TBranch        *b_lep_ptVarcone20_0;   //!
-   TBranch        *b_lep_ptVarcone30_0;   //!
-   TBranch        *b_lep_ptVarcone40_0;   //!
    TBranch        *b_lep_sigd0PV_0;   //!
    TBranch        *b_lep_Z0SinTheta_0;   //!
    TBranch        *b_lep_d0_0;   //!
@@ -320,9 +487,6 @@ public :
    TBranch        *b_lep_isTrigMatch_0;   //!
    TBranch        *b_lep_isTrigMatchDLT_0;   //!
    TBranch        *b_lep_isPrompt_0;   //!
-   TBranch        *b_lep_isFakeLep_0;   //!
-   TBranch        *b_lep_isQMisID_0;   //!
-   TBranch        *b_lep_isConvPh_0;   //!
    TBranch        *b_lep_isISR_FSR_Ph_0;   //!
    TBranch        *b_lep_isBrems_0;   //!
    TBranch        *b_lep_isTruthMatched_0;   //!
@@ -339,11 +503,7 @@ public :
    TBranch        *b_lep_Eta_1;   //!
    TBranch        *b_lep_Phi_1;   //!
    TBranch        *b_lep_topoEtcone20_1;   //!
-   TBranch        *b_lep_topoEtcone30_1;   //!
-   TBranch        *b_lep_topoEtcone40_1;   //!
    TBranch        *b_lep_ptVarcone20_1;   //!
-   TBranch        *b_lep_ptVarcone30_1;   //!
-   TBranch        *b_lep_ptVarcone40_1;   //!
    TBranch        *b_lep_sigd0PV_1;   //!
    TBranch        *b_lep_Z0SinTheta_1;   //!
    TBranch        *b_lep_d0_1;   //!
@@ -364,9 +524,6 @@ public :
    TBranch        *b_lep_isTrigMatch_1;   //!
    TBranch        *b_lep_isTrigMatchDLT_1;   //!
    TBranch        *b_lep_isPrompt_1;   //!
-   TBranch        *b_lep_isFakeLep_1;   //!
-   TBranch        *b_lep_isQMisID_1;   //!
-   TBranch        *b_lep_isConvPh_1;   //!
    TBranch        *b_lep_isISR_FSR_Ph_1;   //!
    TBranch        *b_lep_isBrems_1;   //!
    TBranch        *b_lep_isTruthMatched_1;   //!
@@ -383,11 +540,7 @@ public :
    TBranch        *b_lep_Eta_2;   //!
    TBranch        *b_lep_Phi_2;   //!
    TBranch        *b_lep_topoEtcone20_2;   //!
-   TBranch        *b_lep_topoEtcone30_2;   //!
-   TBranch        *b_lep_topoEtcone40_2;   //!
    TBranch        *b_lep_ptVarcone20_2;   //!
-   TBranch        *b_lep_ptVarcone30_2;   //!
-   TBranch        *b_lep_ptVarcone40_2;   //!
    TBranch        *b_lep_sigd0PV_2;   //!
    TBranch        *b_lep_Z0SinTheta_2;   //!
    TBranch        *b_lep_d0_2;   //!
@@ -409,9 +562,6 @@ public :
    TBranch        *b_lep_isTrigMatchDLT_2;   //!
    TBranch        *b_lep_isPrompt_2;   //!
    TBranch        *b_lep_isFakeLep_2;   //!
-   TBranch        *b_lep_isQMisID_2;   //!
-   TBranch        *b_lep_isConvPh_2;   //!
-   TBranch        *b_lep_isISR_FSR_Ph_2;   //!
    TBranch        *b_lep_isBrems_2;   //!
    TBranch        *b_lep_isTruthMatched_2;   //!
    TBranch        *b_lep_truthType_2;   //!
@@ -421,60 +571,17 @@ public :
    TBranch        *b_lep_ChargeIDBDTMedium_2;   //!
    TBranch        *b_lep_ChargeIDBDTTight_2;   //!
    TBranch        *b_lep_PromptLeptonIso_TagWeight_2;   //!
-   TBranch        *b_lep_ID_3;   //!
-   TBranch        *b_lep_Pt_3;   //!
-   TBranch        *b_lep_E_3;   //!
-   TBranch        *b_lep_Eta_3;   //!
-   TBranch        *b_lep_Phi_3;   //!
-   TBranch        *b_lep_topoEtcone20_3;   //!
-   TBranch        *b_lep_topoEtcone30_3;   //!
-   TBranch        *b_lep_topoEtcone40_3;   //!
-   TBranch        *b_lep_ptVarcone20_3;   //!
-   TBranch        *b_lep_ptVarcone30_3;   //!
-   TBranch        *b_lep_ptVarcone40_3;   //!
-   TBranch        *b_lep_sigd0PV_3;   //!
-   TBranch        *b_lep_Z0SinTheta_3;   //!
-   TBranch        *b_lep_d0_3;   //!
-   TBranch        *b_lep_z0_3;   //!
-   TBranch        *b_lep_isTightLH_3;   //!
-   TBranch        *b_lep_isMediumLH_3;   //!
-   TBranch        *b_lep_isLooseLH_3;   //!
-   TBranch        *b_lep_isTight_3;   //!
-   TBranch        *b_lep_isMedium_3;   //!
-   TBranch        *b_lep_isLoose_3;   //!
-   TBranch        *b_lep_isolationLooseTrackOnly_3;   //!
-   TBranch        *b_lep_isolationLoose_3;   //!
-   TBranch        *b_lep_isolationGradient_3;   //!
-   TBranch        *b_lep_isolationGradientLoose_3;   //!
-   TBranch        *b_lep_isolationFixedCutTight_3;   //!
-   TBranch        *b_lep_isolationFixedCutTightTrackOnly_3;   //!
-   TBranch        *b_lep_isolationFixedCutLoose_3;   //!
-   TBranch        *b_lep_isTrigMatch_3;   //!
-   TBranch        *b_lep_isTrigMatchDLT_3;   //!
-   TBranch        *b_lep_isPrompt_3;   //!
-   TBranch        *b_lep_isFakeLep_3;   //!
-   TBranch        *b_lep_isQMisID_3;   //!
-   TBranch        *b_lep_isConvPh_3;   //!
-   TBranch        *b_lep_isISR_FSR_Ph_3;   //!
-   TBranch        *b_lep_isBrems_3;   //!
-   TBranch        *b_lep_isTruthMatched_3;   //!
-   TBranch        *b_lep_truthType_3;   //!
-   TBranch        *b_lep_truthOrigin_3;   //!
-   TBranch        *b_lep_truthPdgId_3;   //!
-   TBranch        *b_lep_ChargeIDBDTLoose_3;   //!
-   TBranch        *b_lep_ChargeIDBDTMedium_3;   //!
-   TBranch        *b_lep_ChargeIDBDTTight_3;   //!
-   TBranch        *b_lep_PromptLeptonIso_TagWeight_3;   //!
 
+   //SampleHandler(TString input,TString SysSrc);
    SampleHandler(TString input);
    virtual ~SampleHandler();
    virtual Int_t    Cut(Long64_t entry);
    virtual Int_t    GetEntry(Long64_t entry);
    virtual Long64_t LoadTree(Long64_t entry);
-   virtual void     Init(TChain *chain);
+   virtual void     Init(TChain *tree);
    virtual void     Loop(TString config);
    virtual void     cutflow(Int_t Njets);
-   virtual void     makeNtuple(TString type);
+   virtual void     makeNtuple(TString type, TString CRSel);
    virtual Bool_t   Notify();
    virtual void     Show(Long64_t entry = -1);
 };
@@ -482,246 +589,56 @@ public :
 #endif
 
 #ifdef SampleHandler_cxx
+//SampleHandler::SampleHandler(TString input,TString nSysSrc) : fChain(0) 
 SampleHandler::SampleHandler(TString input) : fChain(0) 
 {
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
    TString inputFile;
    TChain *chain=new TChain("Tree");
-   if(input=="datacombined") {
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00276262.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00276329.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00276336.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00276416.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00276511.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00276689.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00276778.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00276790.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00276952.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00276954.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00278880.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00278912.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00278968.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00279169.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00279259.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00279279.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00279284.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00279345.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00279515.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00279598.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00279685.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00279813.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00279867.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00279928.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00279932.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00279984.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00280231.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00280273.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00280319.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00280368.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00280423.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00280464.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00280500.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00280520.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00280614.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00280673.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00280753.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00280853.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00280862.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00280950.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00280977.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00281070.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00281074.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00281075.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00281317.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00281385.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00281411.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00282625.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00282631.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00282712.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00282784.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00282992.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00283074.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00283155.root");
-       chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00283270.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00283429.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00283608.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00283780.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00284006.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00284154.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00284213.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00284285.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00284420.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00284427.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00284484.root");
-      //3.2 above
-       chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00297730.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00298595.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00298609.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00298633.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00298687.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00298690.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00298771.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00298773.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00298862.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00298967.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00299055.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00299144.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00299147.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00299184.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00299243.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00299584.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00300279.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00300345.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00300415.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00300418.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00300487.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00300540.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00300571.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00300600.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00300655.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00300687.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00300784.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00300800.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00300863.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00300908.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00301912.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00301918.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00301932.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00301973.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00302053.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00302137.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00302265.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00302269.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00302300.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00302347.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00302380.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00302391.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00302393.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00302737.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00302831.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00302872.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00302919.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00302925.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00302956.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00303007.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00303079.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00303201.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00303208.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00303264.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00303266.root");
-       chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00303291.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00303304.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00303338.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00303421.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00303499.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00303560.root");
-      //13.2 above
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00303638.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00303832.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00303846.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00303892.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00303943.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00304006.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00304008.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00304128.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00304178.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00304198.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00304211.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00304243.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00304308.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00304337.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00304409.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00304431.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00304494.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00305380.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00305543.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00305571.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00305618.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00305671.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00305674.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00305723.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00305727.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00305735.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00305777.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00305811.root");
-       chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00305920.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00306269.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00306278.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00306310.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00306384.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00306419.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00306442.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00306448.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00306451.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00307126.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00307195.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00307259.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00307306.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00307354.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00307358.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00307394.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00307454.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00307514.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00307539.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00307569.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00307601.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00307656.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00307619.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00307710.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00307716.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00307732.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00307861.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00307935.root");
-       chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00308047.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00308084.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00309375.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00309390.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00309440.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00309516.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00309640.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00309674.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00309759.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00310015.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00310247.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00310249.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00310341.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00310370.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00310405.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00310468.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00310473.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00310634.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00310691.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00310738.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00310809.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00310863.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00310872.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00310969.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00311071.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00311170.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00311244.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00311287.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00311321.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00311365.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00311402.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00311473.root");
-      chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/00311481.root ");
+   TString inputList="inc/"+input+".list";
+   ifstream ifile(inputList.Data(),ifstream::in);
+   string line;
+   while(getline(ifile,line)){
+       char dsid[200];
+       Float_t xsec, kfactor, filterEff;
+       const char* readline=line.c_str();
+       sscanf(readline,"%s %f %f %f",dsid,&xsec,&kfactor,&filterEff);
+       if(dsid[0]=='#') continue;
+       if(input=="datacombined") {
+          inputFile="/publicfs/atlas/atlasnew/higgs/hgg/zhoums/4W/v27.01/data/";
+          inputFile+=dsid;
+          datasetType=1;
+       }
+       if(input!="datacombined"&&(input.Contains("mH")||input.Contains("nonres")||input.Contains("H280")||input.Contains("H300")||input.Contains("H320")||input.Contains("H340")||input.Contains("signal"))){
+          inputFile="/publicfs/atlas/atlasnew/higgs/hgg/zhoums/4W/v27.01/nominal/";
+          inputFile+=dsid;
+          datasetType=1;
+       }
+       if((input!="datacombined")&&(!(input.Contains("mH")||input.Contains("nonres")||input.Contains("H280")||input.Contains("H300")||input.Contains("H320")||input.Contains("H340")))){
+          inputFile="/publicfs/atlas/atlasnew/higgs/hgg/zhoums/4W/v27.01/nominal/";
+          inputFile+=dsid;
+          datasetType=4;//always truthing matching
+          if(input=="Vgam")datasetType=2;//no truth matching
+          if(input=="ttbar"||input=="DY"||input=="Zjets"||input=="WW") datasetType=3;//with truth matching, but won't be filled for mumu channel
+       }
+       chain->Add(inputFile);
    }
-   if(input=="Zjets") {
-      inputFile="/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/ntuples_sherpa2.1_";
-      inputFile +=input;
-      inputFile +=".root";
-      chain->Add(inputFile);
-   }
-   //if(input=="xcheck") chain->Add("/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/361063.root");
-   if((input != "Zjets") || (input != "datacombined")) {
-      inputFile="/scratchfs/atlas/zhoums/ntuples_promptSS/v26.02/ntuples_";
-      inputFile +=input;
-      inputFile +=".root";
-      chain->Add(inputFile);
-   }
-   if(input=="Zjets" ||input=="ttbar" || input=="DY")datasetType=3;
-   else datasetType=1;
+   //NonEventWeight Sys codes 
+   /*TChain *chain=new TChain(nSysSrc);
+   cout<<nSysSrc<<endl;
+   inputFile="/publicfs/atlas/atlasnew/higgs/hgg/zhoums/4W/v27.01/sys/";
+   inputFile+=nSysSrc;
+   inputFile+="/ntuples_";
+   inputFile+=input;
+   inputFile+=".root";
+   SysSrc=nSysSrc;
+   SystematicType="NonEventWeight";
+   if(input=="Vgam") datasetType=2;//no truth matching
+   if(input.Contains("mH")||input.Contains("nonres")||input.Contains("S135")||input.Contains("H340")) datasetType=1;
+   if(input!="Vgam" && (!input.Contains("mH")) && (!input.Contains("nonres"))) datasetType=4;//always truthing matching
+   chain->Add(inputFile);*/ 
+
    dataset=input;
    Init(chain);
 }
@@ -767,23 +684,17 @@ void SampleHandler::Init(TChain *tree)
    jet_phi = 0;
    jet_E = 0;
    jet_passOR = 0;
-   jet_passTauOR = 0;
    jet_flavor_weight_MV2c10 = 0;
    jet_flavor_weight_MV2c00 = 0;
    jet_flavor_weight_MV2c20 = 0;
    selected_jets = 0;
-   selected_jets_T = 0;
-   tau_pt = 0;
-   tau_eta = 0;
-   tau_phi = 0;
-   tau_E = 0;
-   tau_charge = 0;
-   tau_passOR = 0;
-   tau_passEleOLR = 0;
-   tau_isHadronicTau = 0;
-   tau_isTruthMatched = 0;
-   tau_truthOrigin = 0;
-   tau_truthType = 0;
+   m_mcevt_pdf_X1 = 0;
+   m_mcevt_pdf_X2 = 0;
+   m_mcevt_pdf_PDGID1 = 0;
+   m_mcevt_pdf_PDGID2 = 0;
+   m_mcevt_pdf_Q = 0;
+   m_mcevt_pdf_XF1 = 0;
+   m_mcevt_pdf_XF2 = 0;
    // Set branch addresses and branch pointers
    if (!tree) return;
    fChain = tree;
@@ -792,9 +703,9 @@ void SampleHandler::Init(TChain *tree)
 
    fChain->SetBranchAddress("weight_tight", &n_weight_tight, &b_weight_tight);
    fChain->SetBranchAddress("weight_loose", &n_weight_loose, &b_weight_loose);
+   fChain->SetBranchAddress("RunYear", &RunYear, &b_RunYear);
    fChain->SetBranchAddress("dilep_type", &dilep_type, &b_dilep_type);
    fChain->SetBranchAddress("trilep_type", &trilep_type, &b_trilep_type);
-   fChain->SetBranchAddress("qualep_type", &qualep_type, &b_qualep_type);
    fChain->SetBranchAddress("total_charge", &total_charge, &b_total_charge);
    fChain->SetBranchAddress("total_leptons", &total_leptons, &b_total_leptons);
    fChain->SetBranchAddress("MV2c10_70_EventWeight", &MV2c10_70_EventWeight, &b_MV2c10_70_EventWeight);
@@ -804,29 +715,144 @@ void SampleHandler::Init(TChain *tree)
    fChain->SetBranchAddress("jet_phi", &jet_phi, &b_jet_phi);
    fChain->SetBranchAddress("jet_E", &jet_E, &b_jet_E);
    fChain->SetBranchAddress("jet_passOR", &jet_passOR, &b_jet_passOR);
-   fChain->SetBranchAddress("jet_passTauOR", &jet_passTauOR, &b_jet_passTauOR);
    fChain->SetBranchAddress("jet_flavor_weight_MV2c10", &jet_flavor_weight_MV2c10, &b_jet_flavor_weight_MV2c10);
    fChain->SetBranchAddress("jet_flavor_weight_MV2c00", &jet_flavor_weight_MV2c00, &b_jet_flavor_weight_MV2c00);
    fChain->SetBranchAddress("jet_flavor_weight_MV2c20", &jet_flavor_weight_MV2c20, &b_jet_flavor_weight_MV2c20);
    fChain->SetBranchAddress("selected_jets", &selected_jets, &b_selected_jets);
-   fChain->SetBranchAddress("selected_jets_T", &selected_jets_T, &b_selected_jets_T);
-   fChain->SetBranchAddress("nJets_OR_T_MV2c10_70", &nJets_OR_T_MV2c10_70, &b_nJets_OR_T_MV2c10_70);
-   fChain->SetBranchAddress("nJets_OR_T_MV2c10_77", &nJets_OR_T_MV2c10_77, &b_nJets_OR_T_MV2c10_77);
    fChain->SetBranchAddress("nJets_OR_MV2c10_70", &nJets_OR_MV2c10_70, &b_nJets_OR_MV2c10_70);
    fChain->SetBranchAddress("nJets_OR_MV2c10_77", &nJets_OR_MV2c10_77, &b_nJets_OR_MV2c10_77);
-   fChain->SetBranchAddress("nJets_OR_T", &nJets_OR_T, &b_nJets_OR_T);
    fChain->SetBranchAddress("nJets_OR", &nJets_OR, &b_nJets_OR);
-   fChain->SetBranchAddress("tau_pt", &tau_pt, &b_tau_pt);
-   fChain->SetBranchAddress("tau_eta", &tau_eta, &b_tau_eta);
-   fChain->SetBranchAddress("tau_phi", &tau_phi, &b_tau_phi);
-   fChain->SetBranchAddress("tau_E", &tau_E, &b_tau_E);
-   fChain->SetBranchAddress("tau_charge", &tau_charge, &b_tau_charge);
-   fChain->SetBranchAddress("tau_passOR", &tau_passOR, &b_tau_passOR);
-   fChain->SetBranchAddress("tau_passEleOLR", &tau_passEleOLR, &b_tau_passEleOLR);
-   fChain->SetBranchAddress("tau_isHadronicTau", &tau_isHadronicTau, &b_tau_isHadronicTau);
-   fChain->SetBranchAddress("tau_isTruthMatched", &tau_isTruthMatched, &b_tau_isTruthMatched);
-   fChain->SetBranchAddress("tau_truthOrigin", &tau_truthOrigin, &b_tau_truthOrigin);
-   fChain->SetBranchAddress("tau_truthType", &tau_truthType, &b_tau_truthType);
+   fChain->SetBranchAddress("mcWeightOrg", &mcWeightOrg, &b_mcWeightOrg);
+   fChain->SetBranchAddress("SherpaNJetWeight", &SherpaNJetWeight, &b_SherpaNJetWeight);
+   fChain->SetBranchAddress("pileupEventWeight_090", &pileupEventWeight_090, &b_pileupEventWeight_090);
+   fChain->SetBranchAddress("JVT_EventWeight", &JVT_EventWeight, &b_JVT_EventWeight);
+   fChain->SetBranchAddress("pileupEventWeight_UP", &pileupEventWeight_UP, &b_pileupEventWeight_UP);
+   fChain->SetBranchAddress("pileupEventWeight_DOWN", &pileupEventWeight_DOWN, &b_pileupEventWeight_DOWN);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_B0_up", &MV2c10_70_EventWeight_B0_up, &b_MV2c10_70_EventWeight_B0_up);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_B0_down", &MV2c10_70_EventWeight_B0_down, &b_MV2c10_70_EventWeight_B0_down);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_B1_up", &MV2c10_70_EventWeight_B1_up, &b_MV2c10_70_EventWeight_B1_up);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_B1_down", &MV2c10_70_EventWeight_B1_down, &b_MV2c10_70_EventWeight_B1_down);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_B2_up", &MV2c10_70_EventWeight_B2_up, &b_MV2c10_70_EventWeight_B2_up);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_B2_down", &MV2c10_70_EventWeight_B2_down, &b_MV2c10_70_EventWeight_B2_down);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_B3_up", &MV2c10_70_EventWeight_B3_up, &b_MV2c10_70_EventWeight_B3_up);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_B3_down", &MV2c10_70_EventWeight_B3_down, &b_MV2c10_70_EventWeight_B3_down);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_B4_up", &MV2c10_70_EventWeight_B4_up, &b_MV2c10_70_EventWeight_B4_up);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_B4_down", &MV2c10_70_EventWeight_B4_down, &b_MV2c10_70_EventWeight_B4_down);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_B5_up", &MV2c10_70_EventWeight_B5_up, &b_MV2c10_70_EventWeight_B5_up);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_B5_down", &MV2c10_70_EventWeight_B5_down, &b_MV2c10_70_EventWeight_B5_down);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_C0_up", &MV2c10_70_EventWeight_C0_up, &b_MV2c10_70_EventWeight_C0_up);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_C0_down", &MV2c10_70_EventWeight_C0_down, &b_MV2c10_70_EventWeight_C0_down);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_C1_up", &MV2c10_70_EventWeight_C1_up, &b_MV2c10_70_EventWeight_C1_up);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_C1_down", &MV2c10_70_EventWeight_C1_down, &b_MV2c10_70_EventWeight_C1_down);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_C2_up", &MV2c10_70_EventWeight_C2_up, &b_MV2c10_70_EventWeight_C2_up);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_C2_down", &MV2c10_70_EventWeight_C2_down, &b_MV2c10_70_EventWeight_C2_down);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_C3_up", &MV2c10_70_EventWeight_C3_up, &b_MV2c10_70_EventWeight_C3_up);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_C3_down", &MV2c10_70_EventWeight_C3_down, &b_MV2c10_70_EventWeight_C3_down);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_Light0_up", &MV2c10_70_EventWeight_Light0_up, &b_MV2c10_70_EventWeight_Light0_up);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_Light0_down", &MV2c10_70_EventWeight_Light0_down, &b_MV2c10_70_EventWeight_Light0_down);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_Light1_up", &MV2c10_70_EventWeight_Light1_up, &b_MV2c10_70_EventWeight_Light1_up);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_Light1_down", &MV2c10_70_EventWeight_Light1_down, &b_MV2c10_70_EventWeight_Light1_down);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_Light2_up", &MV2c10_70_EventWeight_Light2_up, &b_MV2c10_70_EventWeight_Light2_up);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_Light2_down", &MV2c10_70_EventWeight_Light2_down, &b_MV2c10_70_EventWeight_Light2_down);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_Light3_up", &MV2c10_70_EventWeight_Light3_up, &b_MV2c10_70_EventWeight_Light3_up);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_Light3_down", &MV2c10_70_EventWeight_Light3_down, &b_MV2c10_70_EventWeight_Light3_down);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_Light4_up", &MV2c10_70_EventWeight_Light4_up, &b_MV2c10_70_EventWeight_Light4_up);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_Light4_down", &MV2c10_70_EventWeight_Light4_down, &b_MV2c10_70_EventWeight_Light4_down);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_Light5_up", &MV2c10_70_EventWeight_Light5_up, &b_MV2c10_70_EventWeight_Light5_up);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_Light5_down", &MV2c10_70_EventWeight_Light5_down, &b_MV2c10_70_EventWeight_Light5_down);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_Light6_up", &MV2c10_70_EventWeight_Light6_up, &b_MV2c10_70_EventWeight_Light6_up);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_Light6_down", &MV2c10_70_EventWeight_Light6_down, &b_MV2c10_70_EventWeight_Light6_down);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_Light7_up", &MV2c10_70_EventWeight_Light7_up, &b_MV2c10_70_EventWeight_Light7_up);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_Light7_down", &MV2c10_70_EventWeight_Light7_down, &b_MV2c10_70_EventWeight_Light7_down);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_Light8_up", &MV2c10_70_EventWeight_Light8_up, &b_MV2c10_70_EventWeight_Light8_up);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_Light8_down", &MV2c10_70_EventWeight_Light8_down, &b_MV2c10_70_EventWeight_Light8_down);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_Light9_up", &MV2c10_70_EventWeight_Light9_up, &b_MV2c10_70_EventWeight_Light9_up);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_Light9_down", &MV2c10_70_EventWeight_Light9_down, &b_MV2c10_70_EventWeight_Light9_down);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_Light10_up", &MV2c10_70_EventWeight_Light10_up, &b_MV2c10_70_EventWeight_Light10_up);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_Light10_down", &MV2c10_70_EventWeight_Light10_down, &b_MV2c10_70_EventWeight_Light10_down);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_Light11_up", &MV2c10_70_EventWeight_Light11_up, &b_MV2c10_70_EventWeight_Light11_up);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_Light11_down", &MV2c10_70_EventWeight_Light11_down, &b_MV2c10_70_EventWeight_Light11_down);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_Light12_up", &MV2c10_70_EventWeight_Light12_up, &b_MV2c10_70_EventWeight_Light12_up);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_Light12_down", &MV2c10_70_EventWeight_Light12_down, &b_MV2c10_70_EventWeight_Light12_down);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_Light13_up", &MV2c10_70_EventWeight_Light13_up, &b_MV2c10_70_EventWeight_Light13_up);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_Light13_down", &MV2c10_70_EventWeight_Light13_down, &b_MV2c10_70_EventWeight_Light13_down);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_Light14_up", &MV2c10_70_EventWeight_Light14_up, &b_MV2c10_70_EventWeight_Light14_up);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_Light14_down", &MV2c10_70_EventWeight_Light14_down, &b_MV2c10_70_EventWeight_Light14_down);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_Light15_up", &MV2c10_70_EventWeight_Light15_up, &b_MV2c10_70_EventWeight_Light15_up);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_Light15_down", &MV2c10_70_EventWeight_Light15_down, &b_MV2c10_70_EventWeight_Light15_down);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_extrapolation_up", &MV2c10_70_EventWeight_extrapolation_up, &b_MV2c10_70_EventWeight_extrapolation_up);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_extrapolation_down", &MV2c10_70_EventWeight_extrapolation_down, &b_MV2c10_70_EventWeight_extrapolation_down);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_extrapolation_from_charm_up", &MV2c10_70_EventWeight_extrapolation_from_charm_up, &b_MV2c10_70_EventWeight_extrapolation_from_charm_up);
+   fChain->SetBranchAddress("MV2c10_70_EventWeight_extrapolation_from_charm_down", &MV2c10_70_EventWeight_extrapolation_from_charm_down, &b_MV2c10_70_EventWeight_extrapolation_from_charm_down);
+   fChain->SetBranchAddress("JVT_EventWeight_UP", &JVT_EventWeight_UP, &b_JVT_EventWeight_UP);
+   fChain->SetBranchAddress("JVT_EventWeight_DOWN", &JVT_EventWeight_DOWN, &b_JVT_EventWeight_DOWN);
+   fChain->SetBranchAddress("lepSFTrigLoose", &lepSFTrigLoose, &b_lepSFTrigLoose);
+   fChain->SetBranchAddress("lepSFTrigTight", &lepSFTrigTight, &b_lepSFTrigTight);
+   fChain->SetBranchAddress("lepSFObjLoose", &lepSFObjLoose, &b_lepSFObjLoose);
+   fChain->SetBranchAddress("lepSFObjTight", &lepSFObjTight, &b_lepSFObjTight);
+   fChain->SetBranchAddress("m_mcevt_pdf_X1", &m_mcevt_pdf_X1, &b_m_mcevt_pdf_X1);
+   fChain->SetBranchAddress("m_mcevt_pdf_X2", &m_mcevt_pdf_X2, &b_m_mcevt_pdf_X2);
+   fChain->SetBranchAddress("m_mcevt_pdf_PDGID1", &m_mcevt_pdf_PDGID1, &b_m_mcevt_pdf_PDGID1);
+   fChain->SetBranchAddress("m_mcevt_pdf_PDGID2", &m_mcevt_pdf_PDGID2, &b_m_mcevt_pdf_PDGID2);
+   fChain->SetBranchAddress("m_mcevt_pdf_Q", &m_mcevt_pdf_Q, &b_m_mcevt_pdf_Q);
+   fChain->SetBranchAddress("m_mcevt_pdf_XF1", &m_mcevt_pdf_XF1, &b_m_mcevt_pdf_XF1);
+   fChain->SetBranchAddress("m_mcevt_pdf_XF2", &m_mcevt_pdf_XF2, &b_m_mcevt_pdf_XF2);
+   fChain->SetBranchAddress("lepSFTrigLoose_EL_SF_Trigger_UP", &lepSFTrigLoose_EL_SF_Trigger_UP, &b_lepSFTrigLoose_EL_SF_Trigger_UP);
+   fChain->SetBranchAddress("lepSFTrigTight_EL_SF_Trigger_UP", &lepSFTrigTight_EL_SF_Trigger_UP, &b_lepSFTrigTight_EL_SF_Trigger_UP);
+   fChain->SetBranchAddress("lepSFTrigLoose_EL_SF_Trigger_DOWN", &lepSFTrigLoose_EL_SF_Trigger_DOWN, &b_lepSFTrigLoose_EL_SF_Trigger_DOWN);
+   fChain->SetBranchAddress("lepSFTrigTight_EL_SF_Trigger_DOWN", &lepSFTrigTight_EL_SF_Trigger_DOWN, &b_lepSFTrigTight_EL_SF_Trigger_DOWN);
+   fChain->SetBranchAddress("lepSFObjLoose_EL_SF_Reco_UP", &lepSFObjLoose_EL_SF_Reco_UP, &b_lepSFObjLoose_EL_SF_Reco_UP);
+   fChain->SetBranchAddress("lepSFObjTight_EL_SF_Reco_UP", &lepSFObjTight_EL_SF_Reco_UP, &b_lepSFObjTight_EL_SF_Reco_UP);
+   fChain->SetBranchAddress("lepSFObjLoose_EL_SF_Reco_DOWN", &lepSFObjLoose_EL_SF_Reco_DOWN, &b_lepSFObjLoose_EL_SF_Reco_DOWN);
+   fChain->SetBranchAddress("lepSFObjTight_EL_SF_Reco_DOWN", &lepSFObjTight_EL_SF_Reco_DOWN, &b_lepSFObjTight_EL_SF_Reco_DOWN);
+   fChain->SetBranchAddress("lepSFObjLoose_EL_SF_ID_UP", &lepSFObjLoose_EL_SF_ID_UP, &b_lepSFObjLoose_EL_SF_ID_UP);
+   fChain->SetBranchAddress("lepSFObjTight_EL_SF_ID_UP", &lepSFObjTight_EL_SF_ID_UP, &b_lepSFObjTight_EL_SF_ID_UP);
+   fChain->SetBranchAddress("lepSFObjLoose_EL_SF_ID_DOWN", &lepSFObjLoose_EL_SF_ID_DOWN, &b_lepSFObjLoose_EL_SF_ID_DOWN);
+   fChain->SetBranchAddress("lepSFObjTight_EL_SF_ID_DOWN", &lepSFObjTight_EL_SF_ID_DOWN, &b_lepSFObjTight_EL_SF_ID_DOWN);
+   fChain->SetBranchAddress("lepSFObjLoose_EL_SF_Isol_UP", &lepSFObjLoose_EL_SF_Isol_UP, &b_lepSFObjLoose_EL_SF_Isol_UP);
+   fChain->SetBranchAddress("lepSFObjTight_EL_SF_Isol_UP", &lepSFObjTight_EL_SF_Isol_UP, &b_lepSFObjTight_EL_SF_Isol_UP);
+   fChain->SetBranchAddress("lepSFObjLoose_EL_SF_Isol_DOWN", &lepSFObjLoose_EL_SF_Isol_DOWN, &b_lepSFObjLoose_EL_SF_Isol_DOWN);
+   fChain->SetBranchAddress("lepSFObjTight_EL_SF_Isol_DOWN", &lepSFObjTight_EL_SF_Isol_DOWN, &b_lepSFObjTight_EL_SF_Isol_DOWN);
+   fChain->SetBranchAddress("lepSFTrigLoose_MU_SF_Trigger_STAT_UP", &lepSFTrigLoose_MU_SF_Trigger_STAT_UP, &b_lepSFTrigLoose_MU_SF_Trigger_STAT_UP);
+   fChain->SetBranchAddress("lepSFTrigTight_MU_SF_Trigger_STAT_UP", &lepSFTrigTight_MU_SF_Trigger_STAT_UP, &b_lepSFTrigTight_MU_SF_Trigger_STAT_UP);
+   fChain->SetBranchAddress("lepSFTrigLoose_MU_SF_Trigger_STAT_DOWN", &lepSFTrigLoose_MU_SF_Trigger_STAT_DOWN, &b_lepSFTrigLoose_MU_SF_Trigger_STAT_DOWN);
+   fChain->SetBranchAddress("lepSFTrigTight_MU_SF_Trigger_STAT_DOWN", &lepSFTrigTight_MU_SF_Trigger_STAT_DOWN, &b_lepSFTrigTight_MU_SF_Trigger_STAT_DOWN);
+   fChain->SetBranchAddress("lepSFTrigLoose_MU_SF_Trigger_SYST_UP", &lepSFTrigLoose_MU_SF_Trigger_SYST_UP, &b_lepSFTrigLoose_MU_SF_Trigger_SYST_UP);
+   fChain->SetBranchAddress("lepSFTrigTight_MU_SF_Trigger_SYST_UP", &lepSFTrigTight_MU_SF_Trigger_SYST_UP, &b_lepSFTrigTight_MU_SF_Trigger_SYST_UP);
+   fChain->SetBranchAddress("lepSFTrigLoose_MU_SF_Trigger_SYST_DOWN", &lepSFTrigLoose_MU_SF_Trigger_SYST_DOWN, &b_lepSFTrigLoose_MU_SF_Trigger_SYST_DOWN);
+   fChain->SetBranchAddress("lepSFTrigTight_MU_SF_Trigger_SYST_DOWN", &lepSFTrigTight_MU_SF_Trigger_SYST_DOWN, &b_lepSFTrigTight_MU_SF_Trigger_SYST_DOWN);
+   fChain->SetBranchAddress("lepSFObjLoose_MU_SF_ID_STAT_UP", &lepSFObjLoose_MU_SF_ID_STAT_UP, &b_lepSFObjLoose_MU_SF_ID_STAT_UP);
+   fChain->SetBranchAddress("lepSFObjTight_MU_SF_ID_STAT_UP", &lepSFObjTight_MU_SF_ID_STAT_UP, &b_lepSFObjTight_MU_SF_ID_STAT_UP);
+   fChain->SetBranchAddress("lepSFObjLoose_MU_SF_ID_STAT_DOWN", &lepSFObjLoose_MU_SF_ID_STAT_DOWN, &b_lepSFObjLoose_MU_SF_ID_STAT_DOWN);
+   fChain->SetBranchAddress("lepSFObjTight_MU_SF_ID_STAT_DOWN", &lepSFObjTight_MU_SF_ID_STAT_DOWN, &b_lepSFObjTight_MU_SF_ID_STAT_DOWN);
+   fChain->SetBranchAddress("lepSFObjLoose_MU_SF_ID_SYST_UP", &lepSFObjLoose_MU_SF_ID_SYST_UP, &b_lepSFObjLoose_MU_SF_ID_SYST_UP);
+   fChain->SetBranchAddress("lepSFObjTight_MU_SF_ID_SYST_UP", &lepSFObjTight_MU_SF_ID_SYST_UP, &b_lepSFObjTight_MU_SF_ID_SYST_UP);
+   fChain->SetBranchAddress("lepSFObjLoose_MU_SF_ID_SYST_DOWN", &lepSFObjLoose_MU_SF_ID_SYST_DOWN, &b_lepSFObjLoose_MU_SF_ID_SYST_DOWN);
+   fChain->SetBranchAddress("lepSFObjTight_MU_SF_ID_SYST_DOWN", &lepSFObjTight_MU_SF_ID_SYST_DOWN, &b_lepSFObjTight_MU_SF_ID_SYST_DOWN);
+   fChain->SetBranchAddress("lepSFObjLoose_MU_SF_ID_STAT_LOWPT_UP", &lepSFObjLoose_MU_SF_ID_STAT_LOWPT_UP, &b_lepSFObjLoose_MU_SF_ID_STAT_LOWPT_UP);
+   fChain->SetBranchAddress("lepSFObjTight_MU_SF_ID_STAT_LOWPT_UP", &lepSFObjTight_MU_SF_ID_STAT_LOWPT_UP, &b_lepSFObjTight_MU_SF_ID_STAT_LOWPT_UP);
+   fChain->SetBranchAddress("lepSFObjLoose_MU_SF_ID_STAT_LOWPT_DOWN", &lepSFObjLoose_MU_SF_ID_STAT_LOWPT_DOWN, &b_lepSFObjLoose_MU_SF_ID_STAT_LOWPT_DOWN);
+   fChain->SetBranchAddress("lepSFObjTight_MU_SF_ID_STAT_LOWPT_DOWN", &lepSFObjTight_MU_SF_ID_STAT_LOWPT_DOWN, &b_lepSFObjTight_MU_SF_ID_STAT_LOWPT_DOWN);
+   fChain->SetBranchAddress("lepSFObjLoose_MU_SF_ID_SYST_LOWPT_UP", &lepSFObjLoose_MU_SF_ID_SYST_LOWPT_UP, &b_lepSFObjLoose_MU_SF_ID_SYST_LOWPT_UP);
+   fChain->SetBranchAddress("lepSFObjTight_MU_SF_ID_SYST_LOWPT_UP", &lepSFObjTight_MU_SF_ID_SYST_LOWPT_UP, &b_lepSFObjTight_MU_SF_ID_SYST_LOWPT_UP);
+   fChain->SetBranchAddress("lepSFObjLoose_MU_SF_ID_SYST_LOWPT_DOWN", &lepSFObjLoose_MU_SF_ID_SYST_LOWPT_DOWN, &b_lepSFObjLoose_MU_SF_ID_SYST_LOWPT_DOWN);
+   fChain->SetBranchAddress("lepSFObjTight_MU_SF_ID_SYST_LOWPT_DOWN", &lepSFObjTight_MU_SF_ID_SYST_LOWPT_DOWN, &b_lepSFObjTight_MU_SF_ID_SYST_LOWPT_DOWN);
+   fChain->SetBranchAddress("lepSFObjLoose_MU_SF_Isol_STAT_UP", &lepSFObjLoose_MU_SF_Isol_STAT_UP, &b_lepSFObjLoose_MU_SF_Isol_STAT_UP);
+   fChain->SetBranchAddress("lepSFObjTight_MU_SF_Isol_STAT_UP", &lepSFObjTight_MU_SF_Isol_STAT_UP, &b_lepSFObjTight_MU_SF_Isol_STAT_UP);
+   fChain->SetBranchAddress("lepSFObjLoose_MU_SF_Isol_STAT_DOWN", &lepSFObjLoose_MU_SF_Isol_STAT_DOWN, &b_lepSFObjLoose_MU_SF_Isol_STAT_DOWN);
+   fChain->SetBranchAddress("lepSFObjTight_MU_SF_Isol_STAT_DOWN", &lepSFObjTight_MU_SF_Isol_STAT_DOWN, &b_lepSFObjTight_MU_SF_Isol_STAT_DOWN);
+   fChain->SetBranchAddress("lepSFObjLoose_MU_SF_Isol_SYST_UP", &lepSFObjLoose_MU_SF_Isol_SYST_UP, &b_lepSFObjLoose_MU_SF_Isol_SYST_UP);
+   fChain->SetBranchAddress("lepSFObjTight_MU_SF_Isol_SYST_UP", &lepSFObjTight_MU_SF_Isol_SYST_UP, &b_lepSFObjTight_MU_SF_Isol_SYST_UP);
+   fChain->SetBranchAddress("lepSFObjLoose_MU_SF_Isol_SYST_DOWN", &lepSFObjLoose_MU_SF_Isol_SYST_DOWN, &b_lepSFObjLoose_MU_SF_Isol_SYST_DOWN);
+   fChain->SetBranchAddress("lepSFObjTight_MU_SF_Isol_SYST_DOWN", &lepSFObjTight_MU_SF_Isol_SYST_DOWN, &b_lepSFObjTight_MU_SF_Isol_SYST_DOWN);
+   fChain->SetBranchAddress("lepSFObjLoose_MU_SF_TTVA_STAT_UP", &lepSFObjLoose_MU_SF_TTVA_STAT_UP, &b_lepSFObjLoose_MU_SF_TTVA_STAT_UP);
+   fChain->SetBranchAddress("lepSFObjTight_MU_SF_TTVA_STAT_UP", &lepSFObjTight_MU_SF_TTVA_STAT_UP, &b_lepSFObjTight_MU_SF_TTVA_STAT_UP);
+   fChain->SetBranchAddress("lepSFObjLoose_MU_SF_TTVA_STAT_DOWN", &lepSFObjLoose_MU_SF_TTVA_STAT_DOWN, &b_lepSFObjLoose_MU_SF_TTVA_STAT_DOWN);
+   fChain->SetBranchAddress("lepSFObjTight_MU_SF_TTVA_STAT_DOWN", &lepSFObjTight_MU_SF_TTVA_STAT_DOWN, &b_lepSFObjTight_MU_SF_TTVA_STAT_DOWN);
+   fChain->SetBranchAddress("lepSFObjLoose_MU_SF_TTVA_SYST_UP", &lepSFObjLoose_MU_SF_TTVA_SYST_UP, &b_lepSFObjLoose_MU_SF_TTVA_SYST_UP);
+   fChain->SetBranchAddress("lepSFObjTight_MU_SF_TTVA_SYST_UP", &lepSFObjTight_MU_SF_TTVA_SYST_UP, &b_lepSFObjTight_MU_SF_TTVA_SYST_UP);
+   fChain->SetBranchAddress("lepSFObjLoose_MU_SF_TTVA_SYST_DOWN", &lepSFObjLoose_MU_SF_TTVA_SYST_DOWN, &b_lepSFObjLoose_MU_SF_TTVA_SYST_DOWN);
+   fChain->SetBranchAddress("lepSFObjTight_MU_SF_TTVA_SYST_DOWN", &lepSFObjTight_MU_SF_TTVA_SYST_DOWN, &b_lepSFObjTight_MU_SF_TTVA_SYST_DOWN);
    fChain->SetBranchAddress("MET_RefFinal_et", &MET_RefFinal_et, &b_MET_RefFinal_et);
    fChain->SetBranchAddress("MET_RefFinal_phi", &MET_RefFinal_phi, &b_MET_RefFinal_phi);
    fChain->SetBranchAddress("lep_ID_0", &lep_ID_0, &b_lep_ID_0);
@@ -835,11 +861,7 @@ void SampleHandler::Init(TChain *tree)
    fChain->SetBranchAddress("lep_Eta_0", &lep_Eta_0, &b_lep_Eta_0);
    fChain->SetBranchAddress("lep_Phi_0", &lep_Phi_0, &b_lep_Phi_0);
    fChain->SetBranchAddress("lep_topoEtcone20_0", &lep_topoEtcone20_0, &b_lep_topoEtcone20_0);
-   fChain->SetBranchAddress("lep_topoEtcone30_0", &lep_topoEtcone30_0, &b_lep_topoEtcone30_0);
-   fChain->SetBranchAddress("lep_topoEtcone40_0", &lep_topoEtcone40_0, &b_lep_topoEtcone40_0);
    fChain->SetBranchAddress("lep_ptVarcone20_0", &lep_ptVarcone20_0, &b_lep_ptVarcone20_0);
-   fChain->SetBranchAddress("lep_ptVarcone30_0", &lep_ptVarcone30_0, &b_lep_ptVarcone30_0);
-   fChain->SetBranchAddress("lep_ptVarcone40_0", &lep_ptVarcone40_0, &b_lep_ptVarcone40_0);
    fChain->SetBranchAddress("lep_sigd0PV_0", &lep_sigd0PV_0, &b_lep_sigd0PV_0);
    fChain->SetBranchAddress("lep_Z0SinTheta_0", &lep_Z0SinTheta_0, &b_lep_Z0SinTheta_0);
    fChain->SetBranchAddress("lep_d0_0", &lep_d0_0, &b_lep_d0_0);
@@ -860,9 +882,6 @@ void SampleHandler::Init(TChain *tree)
    fChain->SetBranchAddress("lep_isTrigMatch_0", &lep_isTrigMatch_0, &b_lep_isTrigMatch_0);
    fChain->SetBranchAddress("lep_isTrigMatchDLT_0", &lep_isTrigMatchDLT_0, &b_lep_isTrigMatchDLT_0);
    fChain->SetBranchAddress("lep_isPrompt_0", &lep_isPrompt_0, &b_lep_isPrompt_0);
-   fChain->SetBranchAddress("lep_isFakeLep_0", &lep_isFakeLep_0, &b_lep_isFakeLep_0);
-   fChain->SetBranchAddress("lep_isQMisID_0", &lep_isQMisID_0, &b_lep_isQMisID_0);
-   fChain->SetBranchAddress("lep_isConvPh_0", &lep_isConvPh_0, &b_lep_isConvPh_0);
    fChain->SetBranchAddress("lep_isISR_FSR_Ph_0", &lep_isISR_FSR_Ph_0, &b_lep_isISR_FSR_Ph_0);
    fChain->SetBranchAddress("lep_isBrems_0", &lep_isBrems_0, &b_lep_isBrems_0);
    fChain->SetBranchAddress("lep_isTruthMatched_0", &lep_isTruthMatched_0, &b_lep_isTruthMatched_0);
@@ -879,11 +898,7 @@ void SampleHandler::Init(TChain *tree)
    fChain->SetBranchAddress("lep_Eta_1", &lep_Eta_1, &b_lep_Eta_1);
    fChain->SetBranchAddress("lep_Phi_1", &lep_Phi_1, &b_lep_Phi_1);
    fChain->SetBranchAddress("lep_topoEtcone20_1", &lep_topoEtcone20_1, &b_lep_topoEtcone20_1);
-   fChain->SetBranchAddress("lep_topoEtcone30_1", &lep_topoEtcone30_1, &b_lep_topoEtcone30_1);
-   fChain->SetBranchAddress("lep_topoEtcone40_1", &lep_topoEtcone40_1, &b_lep_topoEtcone40_1);
    fChain->SetBranchAddress("lep_ptVarcone20_1", &lep_ptVarcone20_1, &b_lep_ptVarcone20_1);
-   fChain->SetBranchAddress("lep_ptVarcone30_1", &lep_ptVarcone30_1, &b_lep_ptVarcone30_1);
-   fChain->SetBranchAddress("lep_ptVarcone40_1", &lep_ptVarcone40_1, &b_lep_ptVarcone40_1);
    fChain->SetBranchAddress("lep_sigd0PV_1", &lep_sigd0PV_1, &b_lep_sigd0PV_1);
    fChain->SetBranchAddress("lep_Z0SinTheta_1", &lep_Z0SinTheta_1, &b_lep_Z0SinTheta_1);
    fChain->SetBranchAddress("lep_d0_1", &lep_d0_1, &b_lep_d0_1);
@@ -904,9 +919,6 @@ void SampleHandler::Init(TChain *tree)
    fChain->SetBranchAddress("lep_isTrigMatch_1", &lep_isTrigMatch_1, &b_lep_isTrigMatch_1);
    fChain->SetBranchAddress("lep_isTrigMatchDLT_1", &lep_isTrigMatchDLT_1, &b_lep_isTrigMatchDLT_1);
    fChain->SetBranchAddress("lep_isPrompt_1", &lep_isPrompt_1, &b_lep_isPrompt_1);
-   fChain->SetBranchAddress("lep_isFakeLep_1", &lep_isFakeLep_1, &b_lep_isFakeLep_1);
-   fChain->SetBranchAddress("lep_isQMisID_1", &lep_isQMisID_1, &b_lep_isQMisID_1);
-   fChain->SetBranchAddress("lep_isConvPh_1", &lep_isConvPh_1, &b_lep_isConvPh_1);
    fChain->SetBranchAddress("lep_isISR_FSR_Ph_1", &lep_isISR_FSR_Ph_1, &b_lep_isISR_FSR_Ph_1);
    fChain->SetBranchAddress("lep_isBrems_1", &lep_isBrems_1, &b_lep_isBrems_1);
    fChain->SetBranchAddress("lep_isTruthMatched_1", &lep_isTruthMatched_1, &b_lep_isTruthMatched_1);
@@ -923,11 +935,7 @@ void SampleHandler::Init(TChain *tree)
    fChain->SetBranchAddress("lep_Eta_2", &lep_Eta_2, &b_lep_Eta_2);
    fChain->SetBranchAddress("lep_Phi_2", &lep_Phi_2, &b_lep_Phi_2);
    fChain->SetBranchAddress("lep_topoEtcone20_2", &lep_topoEtcone20_2, &b_lep_topoEtcone20_2);
-   fChain->SetBranchAddress("lep_topoEtcone30_2", &lep_topoEtcone30_2, &b_lep_topoEtcone30_2);
-   fChain->SetBranchAddress("lep_topoEtcone40_2", &lep_topoEtcone40_2, &b_lep_topoEtcone40_2);
    fChain->SetBranchAddress("lep_ptVarcone20_2", &lep_ptVarcone20_2, &b_lep_ptVarcone20_2);
-   fChain->SetBranchAddress("lep_ptVarcone30_2", &lep_ptVarcone30_2, &b_lep_ptVarcone30_2);
-   fChain->SetBranchAddress("lep_ptVarcone40_2", &lep_ptVarcone40_2, &b_lep_ptVarcone40_2);
    fChain->SetBranchAddress("lep_sigd0PV_2", &lep_sigd0PV_2, &b_lep_sigd0PV_2);
    fChain->SetBranchAddress("lep_Z0SinTheta_2", &lep_Z0SinTheta_2, &b_lep_Z0SinTheta_2);
    fChain->SetBranchAddress("lep_d0_2", &lep_d0_2, &b_lep_d0_2);
@@ -949,9 +957,6 @@ void SampleHandler::Init(TChain *tree)
    fChain->SetBranchAddress("lep_isTrigMatchDLT_2", &lep_isTrigMatchDLT_2, &b_lep_isTrigMatchDLT_2);
    fChain->SetBranchAddress("lep_isPrompt_2", &lep_isPrompt_2, &b_lep_isPrompt_2);
    fChain->SetBranchAddress("lep_isFakeLep_2", &lep_isFakeLep_2, &b_lep_isFakeLep_2);
-   fChain->SetBranchAddress("lep_isQMisID_2", &lep_isQMisID_2, &b_lep_isQMisID_2);
-   fChain->SetBranchAddress("lep_isConvPh_2", &lep_isConvPh_2, &b_lep_isConvPh_2);
-   fChain->SetBranchAddress("lep_isISR_FSR_Ph_2", &lep_isISR_FSR_Ph_2, &b_lep_isISR_FSR_Ph_2);
    fChain->SetBranchAddress("lep_isBrems_2", &lep_isBrems_2, &b_lep_isBrems_2);
    fChain->SetBranchAddress("lep_isTruthMatched_2", &lep_isTruthMatched_2, &b_lep_isTruthMatched_2);
    fChain->SetBranchAddress("lep_truthType_2", &lep_truthType_2, &b_lep_truthType_2);
@@ -961,50 +966,6 @@ void SampleHandler::Init(TChain *tree)
    fChain->SetBranchAddress("lep_ChargeIDBDTMedium_2", &lep_ChargeIDBDTMedium_2, &b_lep_ChargeIDBDTMedium_2);
    fChain->SetBranchAddress("lep_ChargeIDBDTTight_2", &lep_ChargeIDBDTTight_2, &b_lep_ChargeIDBDTTight_2);
    fChain->SetBranchAddress("lep_PromptLeptonIso_TagWeight_2", &lep_PromptLeptonIso_TagWeight_2, &b_lep_PromptLeptonIso_TagWeight_2);
-   fChain->SetBranchAddress("lep_ID_3", &lep_ID_3, &b_lep_ID_3);
-   fChain->SetBranchAddress("lep_Pt_3", &lep_Pt_3, &b_lep_Pt_3);
-   fChain->SetBranchAddress("lep_E_3", &lep_E_3, &b_lep_E_3);
-   fChain->SetBranchAddress("lep_Eta_3", &lep_Eta_3, &b_lep_Eta_3);
-   fChain->SetBranchAddress("lep_Phi_3", &lep_Phi_3, &b_lep_Phi_3);
-   fChain->SetBranchAddress("lep_topoEtcone20_3", &lep_topoEtcone20_3, &b_lep_topoEtcone20_3);
-   fChain->SetBranchAddress("lep_topoEtcone30_3", &lep_topoEtcone30_3, &b_lep_topoEtcone30_3);
-   fChain->SetBranchAddress("lep_topoEtcone40_3", &lep_topoEtcone40_3, &b_lep_topoEtcone40_3);
-   fChain->SetBranchAddress("lep_ptVarcone20_3", &lep_ptVarcone20_3, &b_lep_ptVarcone20_3);
-   fChain->SetBranchAddress("lep_ptVarcone30_3", &lep_ptVarcone30_3, &b_lep_ptVarcone30_3);
-   fChain->SetBranchAddress("lep_ptVarcone40_3", &lep_ptVarcone40_3, &b_lep_ptVarcone40_3);
-   fChain->SetBranchAddress("lep_sigd0PV_3", &lep_sigd0PV_3, &b_lep_sigd0PV_3);
-   fChain->SetBranchAddress("lep_Z0SinTheta_3", &lep_Z0SinTheta_3, &b_lep_Z0SinTheta_3);
-   fChain->SetBranchAddress("lep_d0_3", &lep_d0_3, &b_lep_d0_3);
-   fChain->SetBranchAddress("lep_z0_3", &lep_z0_3, &b_lep_z0_3);
-   fChain->SetBranchAddress("lep_isTightLH_3", &lep_isTightLH_3, &b_lep_isTightLH_3);
-   fChain->SetBranchAddress("lep_isMediumLH_3", &lep_isMediumLH_3, &b_lep_isMediumLH_3);
-   fChain->SetBranchAddress("lep_isLooseLH_3", &lep_isLooseLH_3, &b_lep_isLooseLH_3);
-   fChain->SetBranchAddress("lep_isTight_3", &lep_isTight_3, &b_lep_isTight_3);
-   fChain->SetBranchAddress("lep_isMedium_3", &lep_isMedium_3, &b_lep_isMedium_3);
-   fChain->SetBranchAddress("lep_isLoose_3", &lep_isLoose_3, &b_lep_isLoose_3);
-   fChain->SetBranchAddress("lep_isolationLooseTrackOnly_3", &lep_isolationLooseTrackOnly_3, &b_lep_isolationLooseTrackOnly_3);
-   fChain->SetBranchAddress("lep_isolationLoose_3", &lep_isolationLoose_3, &b_lep_isolationLoose_3);
-   fChain->SetBranchAddress("lep_isolationGradient_3", &lep_isolationGradient_3, &b_lep_isolationGradient_3);
-   fChain->SetBranchAddress("lep_isolationGradientLoose_3", &lep_isolationGradientLoose_3, &b_lep_isolationGradientLoose_3);
-   fChain->SetBranchAddress("lep_isolationFixedCutTight_3", &lep_isolationFixedCutTight_3, &b_lep_isolationFixedCutTight_3);
-   fChain->SetBranchAddress("lep_isolationFixedCutTightTrackOnly_3", &lep_isolationFixedCutTightTrackOnly_3, &b_lep_isolationFixedCutTightTrackOnly_3);
-   fChain->SetBranchAddress("lep_isolationFixedCutLoose_3", &lep_isolationFixedCutLoose_3, &b_lep_isolationFixedCutLoose_3);
-   fChain->SetBranchAddress("lep_isTrigMatch_3", &lep_isTrigMatch_3, &b_lep_isTrigMatch_3);
-   fChain->SetBranchAddress("lep_isTrigMatchDLT_3", &lep_isTrigMatchDLT_3, &b_lep_isTrigMatchDLT_3);
-   fChain->SetBranchAddress("lep_isPrompt_3", &lep_isPrompt_3, &b_lep_isPrompt_3);
-   fChain->SetBranchAddress("lep_isFakeLep_3", &lep_isFakeLep_3, &b_lep_isFakeLep_3);
-   fChain->SetBranchAddress("lep_isQMisID_3", &lep_isQMisID_3, &b_lep_isQMisID_3);
-   fChain->SetBranchAddress("lep_isConvPh_3", &lep_isConvPh_3, &b_lep_isConvPh_3);
-   fChain->SetBranchAddress("lep_isISR_FSR_Ph_3", &lep_isISR_FSR_Ph_3, &b_lep_isISR_FSR_Ph_3);
-   fChain->SetBranchAddress("lep_isBrems_3", &lep_isBrems_3, &b_lep_isBrems_3);
-   fChain->SetBranchAddress("lep_isTruthMatched_3", &lep_isTruthMatched_3, &b_lep_isTruthMatched_3);
-   fChain->SetBranchAddress("lep_truthType_3", &lep_truthType_3, &b_lep_truthType_3);
-   fChain->SetBranchAddress("lep_truthOrigin_3", &lep_truthOrigin_3, &b_lep_truthOrigin_3);
-   fChain->SetBranchAddress("lep_truthPdgId_3", &lep_truthPdgId_3, &b_lep_truthPdgId_3);
-   fChain->SetBranchAddress("lep_ChargeIDBDTLoose_3", &lep_ChargeIDBDTLoose_3, &b_lep_ChargeIDBDTLoose_3);
-   fChain->SetBranchAddress("lep_ChargeIDBDTMedium_3", &lep_ChargeIDBDTMedium_3, &b_lep_ChargeIDBDTMedium_3);
-   fChain->SetBranchAddress("lep_ChargeIDBDTTight_3", &lep_ChargeIDBDTTight_3, &b_lep_ChargeIDBDTTight_3);
-   fChain->SetBranchAddress("lep_PromptLeptonIso_TagWeight_3", &lep_PromptLeptonIso_TagWeight_3, &b_lep_PromptLeptonIso_TagWeight_3);
    Notify();
 }
 

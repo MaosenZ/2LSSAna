@@ -1,0 +1,39 @@
+10/06/2016:
+ looks we need Z veto for both id+id/id+antiid ee regions, since only with this 0 < ff < 1
+ ff(electron)=0.611, ff(muon)=0.847   looks weird ff(muon)>ff(electron), need checks
+  --fixed by removing impact parameters requirements on antiid muons, ff(muon) = 0.281
+
+12/06/2016:
+ emu jet fakes excess
+ ee jet fakes: 117.506
+ mumu jet fakes: 47.0108
+ emu jet fakes: 85.6423 where antiidemu: 69.258 and eantiidmu: 16.3844
+                ee                 mumu              emu         
+ data           150                66                78
+ QmisID         15.801             ~                 19.0793
+ prompt SS      10.1057            12.4294           20.1088
+ left           126.135            53.5706           38.8119
+22/08:
+looks data excess in CR for 13.2 fb of v19, while not the case for v17, need to be checked.
+Sep:
+drop Z veto in both regions.
+
+17/10/2016:
+Fully updated, much more compact.
+there is predicted deficit in CR, probably QmisID underestimated. Currently tag first lepton in ee channel.
+**To calculate fake factor, there are two passes:
+ ==1jet: FFcal_1jets, FFcal_QmisID_1jets ->saved in hist_ff_1jets.root
+ ==2jet: FFcal_2jets, FFcal_QmisID_2jets ->saved in hist_ff_2jets.root
+**To apply fake factor, there are also two passes:
+ 1<=Njet<=2jet: FFApp_2jets, FFApp_QmisID_2jets (reading hist_ff_1jets.root)
+ Njet>=3: FFApp_3jets, FFApp_QmisID_3jets (reading hist_ff_2jets.root)
+ !!always remember to modify src/count.cxx, src/DataMC.cxx and src/FFApp.cxx when change to the other pass
+**To save miniNtuples:
+ Two passes: Njet>=2(read hist_ff_1jets), Njet>=3(read hist_ff_2jets)
+ --nominal_2jets, FFApp_2jets, QmisID_2jets (reading hist_ff_1jets.root)
+ --nominal_3jets, FFApp_3jets, QmisID_3jets (reading hist_ff_2jets.root)
+
+22/11/2016
+2jets: Njet>=2
+
+if !isoTight for electron, .38, too small
